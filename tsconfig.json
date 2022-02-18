@@ -1,26 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "esnext",
+    "rootDir": "src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": false,
     "allowJs": true,
+    "checkJs": true,
+    "module": "CommonJS",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "declaration": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "typeRoots": ["src/@types", "@types"],
+    "types": ["node"],
+    "incremental": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*", "src/@types", "src/Server/Server.ts"]
 }
