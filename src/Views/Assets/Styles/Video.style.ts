@@ -6,7 +6,7 @@ export const VideoWrapper = styled.div`
   border: 5px solid red;
 `;
 
-export const Video = styled.div`
+export const VideoStyle = styled.div`
   position: absolute;
   top: 0;
   left: 0;

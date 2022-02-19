@@ -1,7 +1,7 @@
 import React from 'react';
 
-function VideoUtil() {
+function ToggleComp() {
   return <div></div>;
 }
 
-export default VideoUtil;
+export default ToggleComp;
