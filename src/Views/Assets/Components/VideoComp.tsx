@@ -1,24 +1,24 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
-// import { idOfVideo } from './VideoUtil';
 import ProgressBar from '@ramonak/react-progress-bar';
-import { Range, getTrackBackground } from 'react-range';
 
 function VideoComp() {
   const size = {
     wd: '800px',
     ht: '500px',
   };
-  const ref = useRef(null);
-  const [playIndex, setPlayIndex] = useState(0);
-  const [cplayed, setCplayed] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [auto, setAuto] = useState(false);
-  const [control, setControl] = useState(false);
   const playlist = [
     { idx: 1, url: 'https://www.youtube.com/watch?v=Rq5SEhs9lws' },
     { idx: 2, url: 'https://www.youtube.com/watch?v=HuSvZLvtxms' },
   ];
+  const ref = useRef(null);
+  const [playIndex, setPlayIndex] = useState(0);
+  const [cplayed, setCplayed] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [values, setValues] = useState([50]);
+  const [round, setRound] = useState(null);
+  const [auto, setAuto] = useState(false);
+  const [control, setControl] = useState(false);
 
   const handleNextVideo = (video: string | any[], playIndex: number) => {
     if (playIndex === video.length - 1) {
@@ -28,22 +28,19 @@ function VideoComp() {
     }
   };
 
+  const handlePlay = () => {
+    setPlaying(!playing);
+  };
+
+  const handleRange = (values: any) => {
+    setValues([...values]);
+  };
+
   // const selectVideo = (index: number) => {
   //   setPlayIndex(index);
   // };
 
   // console.log('titleofYouTube', idOfVideo);
-
-  const handlePlay = () => {
-    setPlaying(!playing);
-  };
-
-  const [values, setValues] = useState([50]);
-  const [round, setRound] = useState(null);
-
-  const handleRange = (values: any) => {
-    setValues([...values]);
-  };
 
   const inputRange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCplayed(Number(event.currentTarget.value));
