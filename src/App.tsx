@@ -1,11 +1,8 @@
 import React from 'react';
+import Video from './Views/Pages/Video';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>HelloWorld</h1>
-    </div>
-  );
+  return <Video />;
 }
 
 export default App;
