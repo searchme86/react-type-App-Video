@@ -1,39 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
 // import { idOfVideo } from './VideoUtil';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { Range, getTrackBackground } from 'react-range';
 
 function VideoComp() {
-  const STEP = 0.1;
-  const MIN = 0;
-  const MAX = 100;
-  const [values, setValues] = useState([50]);
-  const handleRange = (values: any) => {
-    setValues([...values]);
+  const size = {
+    wd: '800px',
+    ht: '500px',
   };
-
+  const ref = useRef(null);
   const [playIndex, setPlayIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const [round, setRound] = useState(null);
   const [auto, setAuto] = useState(false);
   const [control, setControl] = useState(false);
-  const howLongleft = ({ played }: any) => {
-    setRound(Math.ceil(played * 100));
-  };
   const playlist = [
     { idx: 1, url: 'https://www.youtube.com/watch?v=Rq5SEhs9lws' },
     { idx: 2, url: 'https://www.youtube.com/watch?v=HuSvZLvtxms' },
   ];
 
-  const size = {
-    wd: '800px',
-    ht: '500px',
-  };
-
   const handleNextVideo = (video: string | any[], playIndex: number) => {
-    // matchYoutubeUrl(video);
-
     if (playIndex === video.length - 1) {
       setPlayIndex(0);
     } else {
@@ -45,12 +31,32 @@ function VideoComp() {
   //   setPlayIndex(index);
   // };
 
+  // console.log('titleofYouTube', idOfVideo);
+
   const handlePlay = () => {
     setPlaying(!playing);
   };
 
-  // console.log('titleofYouTube', idOfVideo);
-  console.log('round', round);
+  //게이지바
+  // const STEP = 0.1;
+  const STEP = 1;
+  const MIN = 0;
+  const MAX = 100;
+
+  const [values, setValues] = useState([50]);
+  const [round, setRound] = useState(null);
+
+  const handleRange = (values: any) => {
+    setValues([...values]);
+  };
+
+  const handle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues([Math.floor(Number(event.currentTarget.value))]);
+  };
+
+  const howLongleft = ({ played }: any) => {
+    setRound(Math.ceil(played * 100));
+  };
 
   if (playlist === null) return <p>Loading...</p>;
 
@@ -59,6 +65,7 @@ function VideoComp() {
       <div>
         <ReactPlayer
           className="react-player"
+          ref={ref}
           width={size.wd}
           height={size.ht}
           url={playlist[playIndex].url}
@@ -150,6 +157,9 @@ function VideoComp() {
         <div className="">
           <div className="">
             <button onClick={handlePlay}>{playing ? '멈춤' : '시작'}</button>
+            <button onClick={() => ref.current.seekTo(10)}>
+              Seek to 00:10
+            </button>
           </div>
           <p>여기</p>
         </div>
