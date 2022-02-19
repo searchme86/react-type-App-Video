@@ -11,6 +11,7 @@ function VideoComp() {
   };
   const ref = useRef(null);
   const [playIndex, setPlayIndex] = useState(0);
+  const [cplayed, setCplayed] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [auto, setAuto] = useState(false);
   const [control, setControl] = useState(false);
@@ -37,12 +38,6 @@ function VideoComp() {
     setPlaying(!playing);
   };
 
-  //게이지바
-  // const STEP = 0.1;
-  const STEP = 1;
-  const MIN = 0;
-  const MAX = 100;
-
   const [values, setValues] = useState([50]);
   const [round, setRound] = useState(null);
 
@@ -50,14 +45,21 @@ function VideoComp() {
     setValues([...values]);
   };
 
-  const handle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues([Math.floor(Number(event.currentTarget.value))]);
+  const inputRange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCplayed(Number(event.currentTarget.value));
+    // setCplayed(Math.ceil(Number(event.currentTarget.value)));
+    ref.current.seekTo(cplayed);
+    /* <button onClick={() => ref.current.seekTo(10)}></button> */
+
+    // ref.current.seekTo([Math.floor(Number(event.currentTarget.value))]);
+    // setValues([Math.floor(Number(event.currentTarget.value))]);
   };
 
   const howLongleft = ({ played }: any) => {
-    setRound(Math.ceil(played * 100));
+    setRound(Math.ceil(played));
   };
 
+  console.log('cplayed', cplayed);
   if (playlist === null) return <p>Loading...</p>;
 
   return (
@@ -79,90 +81,26 @@ function VideoComp() {
       </div>
       <div className="">
         <div>
-          <ProgressBar completed={round} maxCompleted={100} />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            margin: '2em',
-          }}
-        >
-          <Range
-            values={values}
-            step={STEP}
-            min={MIN}
-            max={MAX}
-            onChange={handleRange}
-            renderTrack={({ props, children }) => (
-              <div
-                onMouseDown={props.onMouseDown}
-                onTouchStart={props.onTouchStart}
-                style={{
-                  ...props.style,
-                  height: '36px',
-                  display: 'flex',
-                  width: '100%',
-                }}
-              >
-                <div
-                  ref={props.ref}
-                  style={{
-                    height: '5px',
-                    width: '100%',
-                    borderRadius: '4px',
-                    background: getTrackBackground({
-                      values: values,
-                      colors: ['#548BF4', '#ccc'],
-                      min: MIN,
-                      max: MAX,
-                    }),
-                    alignSelf: 'center',
-                  }}
-                >
-                  {children}
-                </div>
-              </div>
-            )}
-            renderThumb={({ props, isDragged }) => (
-              <div
-                {...props}
-                style={{
-                  ...props.style,
-                  height: '42px',
-                  width: '42px',
-                  borderRadius: '4px',
-                  backgroundColor: '#FFF',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  boxShadow: '0px 2px 6px #AAA',
-                }}
-              >
-                <div
-                  style={{
-                    height: '16px',
-                    width: '5px',
-                    backgroundColor: isDragged ? '#548BF4' : '#CCC',
-                  }}
-                />
-              </div>
-            )}
-          />
-          <output style={{ marginTop: '30px' }} id="output">
-            {values[0].toFixed(1)}
-          </output>
+          <ProgressBar completed={cplayed * 100} maxCompleted={100} />
         </div>
         <div className="">
           <div className="">
             <button onClick={handlePlay}>{playing ? '멈춤' : '시작'}</button>
-            <button onClick={() => ref.current.seekTo(10)}>
+            <button onClick={() => ref.current.seekTo(cplayed)}>
               Seek to 00:10
             </button>
+            <input
+              type="range"
+              min={0}
+              max={0.999999}
+              step="any"
+              value={cplayed}
+              onChange={inputRange}
+            />
           </div>
-          <p>여기</p>
+          <p>여기...{cplayed}</p>
         </div>
+        <p>여기...{cplayed}</p>
       </div>
     </div>
   );
