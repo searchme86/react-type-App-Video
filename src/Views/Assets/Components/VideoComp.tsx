@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import ProgressBar from '@ramonak/react-progress-bar';
+import Toggle from './ToggleComp/Toggle';
 
 function VideoComp() {
   const size = {
@@ -14,7 +15,9 @@ function VideoComp() {
   const ref = useRef(null);
   const [playIndex, setPlayIndex] = useState(0);
   const [cplayed, setCplayed] = useState(0);
-  const [playing, setPlaying] = useState(true);
+  //실행에 대한 state
+  const [play, setPlay] = useState(false);
+  // 무엇
   const [values, setValues] = useState([50]);
   const [round, setRound] = useState(null);
   const [auto, setAuto] = useState(false);
@@ -28,8 +31,14 @@ function VideoComp() {
     }
   };
 
+  //플레이하는 함수
   const handlePlay = () => {
-    setPlaying(!playing);
+    setPlay(true);
+  };
+
+  //멈추는 함수
+  const handlePause = () => {
+    setPlay(false);
   };
 
   const handleRange = (values: any) => {
@@ -51,7 +60,7 @@ function VideoComp() {
     setRound(Math.ceil(played));
   };
 
-  console.log('cplayed', cplayed);
+  console.log('cplayed', cplayed * 100);
 
   if (playlist === null) return <p>Loading...</p>;
 
@@ -64,7 +73,7 @@ function VideoComp() {
           width={size.wd}
           height={size.ht}
           url={playlist[playIndex].url}
-          playing={playing}
+          playing={play}
           light={false}
           muted={false}
           controls={true}
@@ -75,13 +84,15 @@ function VideoComp() {
       <div className="">
         <div>
           <ProgressBar
-            completed={Math.ceil(cplayed * 100)}
+            completed={Math.round(cplayed * 100)}
             maxCompleted={100}
           />
         </div>
         <div className="">
           <div className="">
-            <button onClick={handlePlay}>{playing ? '멈춤' : '시작'}</button>
+            {/* <button onClick={handlePlay}>{playing ? '멈춤' : '시작'}</button> */}
+            <button onClick={handlePlay}>시작</button>
+            <button onClick={handlePause}>멈춤</button>
             <button onClick={() => ref.current.seekTo(cplayed)}>
               Seek to 00:10
             </button>
@@ -95,8 +106,8 @@ function VideoComp() {
             />
           </div>
           <p>여기...{cplayed}</p>
+          <Toggle />
         </div>
-        <p>여기...{cplayed}</p>
       </div>
     </div>
   );

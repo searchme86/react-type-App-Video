@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 
-export const ToggleBox = styled.div`
+export const ToggleBox = styled.div``;
+
+export const ToggleItem = styled.div`
   position: relative;
-  height: 200px;
-  border: 1px solid red;
 `;
 
-export const ToggleTitle = styled.span`
-  position: absolute;
+export const ToggleTitle = styled.label`
   display: block;
-  top: -26px;
-  background: yellow;
   font-size: 20px;
 `;
 
@@ -25,60 +22,77 @@ export const ToggleInput = styled.input`
 
   &:checked + label:after {
     content: ' ';
-    width: 21px;
-    height: 21px;
-    background: #fff;
-    // left: calc(100% - 2px);
+    width: 35px;
+    height: 35px;
     left: 46px;
-    // transform: translateX(-100%);
+    background: #fff;
   }
 
-  // &:focus + label {
-  //   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-  // }
-
-  // &:focus:checked + label {
-  //   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-  // }
+  &:checked + label {
+    span {
+      margin-left: 0;
+    }
+  }
 `;
 
 export const ToggleLabel = styled.label`
   display: block;
-  position: relative;
-  top: 30px;
-  width: 70px;
-  height: 25px;
+  width: 85px;
+  height: 40px;
   border-radius: 100px;
   background-color: red;
-
+  overflow: hidden;
   transition: background-color 0.2s box-shadow 0.2s;
+  cursor: pointer;
 
   &:before {
     content: '';
     display: block;
-    background: yellow;
-    cursor: pointer;
-    width: 70px;
-    height: 25px;
-    border-radius: 100px;
-    border: 2px solid red;
-    background-color: red;
+    width: 85px;
+    height: 40px;
   }
 
   &:after {
-    content: ' ';
+    content: '';
+    width: 35px;
+    height: 35px;
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 21px;
-    height: 21px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2.5px;
     border-radius: 45px;
-    transition: 0.2s;
     background: #fff;
+    transition: 0.2s;
     box-shadow: 0 2px 4px 0 rgba(0, 35, 11, 0.2);
   }
+`;
 
-  &:active:before {
-    width: 28px;
+export const ToggleStatus = styled.span`
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+  position: relative;
+  &:before {
+    content: attr(data-yes);
+    display: block;
+    position: absolute;
+    float: left;
+    width: 100%;
+    height: 20px;
+    top: calc(100% - 27px);
+    left: 11px;
+    text-align: left;
+  }
+  &:after {
+    content: attr(data-no);
+    display: block;
+    position: absolute;
+    float: left;
+    width: 100%;
+    height: 20px;
+    top: calc(100% - 27px);
+    right: 11px;
+    text-align: right;
   }
 `;

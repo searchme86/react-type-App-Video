@@ -4,11 +4,14 @@ import {
   ToggleBox,
   ToggleLabel,
   ToggleTitle,
+  ToggleStatus,
+  ToggleItem,
 } from './Toggle.style';
 
 interface lToggleInfo {
   label: string;
   labelFor: string;
+  optionsLabels: string[];
 }
 
 interface lToggle {
@@ -18,16 +21,26 @@ interface lToggle {
 
 function ToggleSlider({ onchange, toggleInfo }: lToggle) {
   return (
-    <ToggleBox>
-      <ToggleInput
-        type="checkbox"
-        id={toggleInfo.labelFor}
-        onChange={onchange}
-      />
-      <ToggleLabel htmlFor={toggleInfo.labelFor}>
-        <ToggleTitle>{toggleInfo.label}</ToggleTitle>
-      </ToggleLabel>
-    </ToggleBox>
+    <>
+      <ToggleBox>
+        <ToggleTitle htmlFor={toggleInfo.labelFor}>
+          {toggleInfo.label}
+        </ToggleTitle>
+        <ToggleItem>
+          <ToggleInput
+            type="checkbox"
+            id={toggleInfo.labelFor}
+            onChange={onchange}
+          />
+          <ToggleLabel htmlFor={toggleInfo.labelFor}>
+            <ToggleStatus
+              data-yes={toggleInfo.optionsLabels[0]}
+              data-no={toggleInfo.optionsLabels[1]}
+            />
+          </ToggleLabel>
+        </ToggleItem>
+      </ToggleBox>
+    </>
   );
 }
 

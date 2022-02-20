@@ -9,6 +9,7 @@ function Toggle() {
   const toggleInfo = {
     label: '라벨',
     labelFor: 'label-autoPlay',
+    optionsLabels: ['Yes', 'No'],
   };
 
   return (
