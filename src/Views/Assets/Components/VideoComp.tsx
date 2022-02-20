@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import ProgressBar from '@ramonak/react-progress-bar';
 import Toggle from './ToggleComp/Toggle';
+import Clipboard from './ClipboardComp/Clipboard';
 
 function VideoComp() {
   const size = {
@@ -109,6 +110,7 @@ function VideoComp() {
           <Toggle />
         </div>
       </div>
+      <Clipboard />
     </div>
   );
 }
