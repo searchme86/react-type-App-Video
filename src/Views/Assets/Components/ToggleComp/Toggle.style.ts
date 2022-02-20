@@ -17,7 +17,7 @@ export const ToggleInput = styled.input`
   top: -9999px;
 
   &:checked + label:before {
-    background-color: #1890ff;
+    background-color: #597ef7;
   }
 
   &:checked + label:after {
@@ -40,7 +40,7 @@ export const ToggleLabel = styled.label`
   width: 85px;
   height: 40px;
   border-radius: 100px;
-  background-color: red;
+  background-color: #f5f5f5;
   overflow: hidden;
   transition: background-color 0.2s box-shadow 0.2s;
   cursor: pointer;
