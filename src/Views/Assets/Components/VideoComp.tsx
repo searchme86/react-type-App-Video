@@ -44,12 +44,7 @@ function VideoComp() {
 
   const inputRange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCplayed(Number(event.currentTarget.value));
-    // setCplayed(Math.ceil(Number(event.currentTarget.value)));
     ref.current.seekTo(cplayed);
-    /* <button onClick={() => ref.current.seekTo(10)}></button> */
-
-    // ref.current.seekTo([Math.floor(Number(event.currentTarget.value))]);
-    // setValues([Math.floor(Number(event.currentTarget.value))]);
   };
 
   const howLongleft = ({ played }: any) => {
@@ -57,6 +52,7 @@ function VideoComp() {
   };
 
   console.log('cplayed', cplayed);
+
   if (playlist === null) return <p>Loading...</p>;
 
   return (
@@ -78,7 +74,10 @@ function VideoComp() {
       </div>
       <div className="">
         <div>
-          <ProgressBar completed={cplayed * 100} maxCompleted={100} />
+          <ProgressBar
+            completed={Math.ceil(cplayed * 100)}
+            maxCompleted={100}
+          />
         </div>
         <div className="">
           <div className="">
