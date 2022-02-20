@@ -13,7 +13,12 @@ function Clipboard() {
   };
   return (
     <div>
-      <ClipData value={value} copyText={copyText} onCopy={onCopy} />
+      <ClipData
+        value={value}
+        copyText={copyText}
+        onCopy={onCopy}
+        copied={copied}
+      />
     </div>
   );
 }
