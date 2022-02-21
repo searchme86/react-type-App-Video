@@ -3,7 +3,10 @@ import ReactPlayer from 'react-player';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { FaPlayCircle, FaStopCircle } from 'react-icons/fa';
 import Toggle from './ToggleComp/Toggle';
-import Clipboard from './ClipboardComp/Clipboard';
+// import Clipboard from './ClipboardComp/Clipboard';
+// import CounterComp from '../../../Store/SComponents/CounterComp';
+import CounterContainers from '../../../Store/Containers/CounterContainers';
+import ClipoardContainers from '../../../Store/Containers/ClipoardContainers';
 
 function VideoComp() {
   const size = {
@@ -111,7 +114,9 @@ function VideoComp() {
           <Toggle />
         </div>
       </div>
-      <Clipboard />
+      {/* <Clipboard /> */}
+      <ClipoardContainers />
+      <CounterContainers />
     </div>
   );
 }
