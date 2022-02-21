@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import ProgressBar from '@ramonak/react-progress-bar';
+import { FaPlayCircle, FaStopCircle } from 'react-icons/fa';
 import Toggle from './ToggleComp/Toggle';
 import Clipboard from './ClipboardComp/Clipboard';
 
@@ -91,9 +92,8 @@ function VideoComp() {
         </div>
         <div className="">
           <div className="">
-            {/* <button onClick={handlePlay}>{playing ? '멈춤' : '시작'}</button> */}
-            <button onClick={handlePlay}>시작</button>
-            <button onClick={handlePause}>멈춤</button>
+            <FaPlayCircle onClick={handlePlay} />
+            <FaStopCircle onClick={handlePause} />
             <button onClick={() => ref.current.seekTo(cplayed)}>
               Seek to 00:10
             </button>
@@ -107,6 +107,7 @@ function VideoComp() {
             />
           </div>
           <p>여기...{cplayed}</p>
+
           <Toggle />
         </div>
       </div>

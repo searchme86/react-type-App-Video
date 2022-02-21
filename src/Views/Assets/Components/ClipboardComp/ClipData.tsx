@@ -15,7 +15,7 @@ function ClipData({ value, copyText, onCopy, copied }: lClipboard) {
       <CopyToClipboard text={value} onCopy={onCopy}>
         <button>Copy to clipboard</button>
       </CopyToClipboard>
-      <p>{copied ? <p>복사가 성공했습니다</p> : <p>실패!</p>}</p>
+      <div>{copied ? <p>copied!!</p> : <p>복사가 입력전 입니다</p>}</div>
     </div>
   );
 }
