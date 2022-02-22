@@ -14,12 +14,14 @@ interface lToggleInfo {
   optionsLabels: string[];
 }
 
-interface lToggle {
-  onchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface lToggleProps {
+  handleToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   toggleInfo: lToggleInfo;
+  toggle: boolean;
+  inputRef: React.MutableRefObject<HTMLInputElement>;
 }
 
-function ToggleSlider({ onchange, toggleInfo }: lToggle) {
+function Toggle({ handleToggle, toggleInfo, toggle, inputRef }: lToggleProps) {
   return (
     <>
       <ToggleBox>
@@ -30,7 +32,8 @@ function ToggleSlider({ onchange, toggleInfo }: lToggle) {
           <ToggleInput
             type="checkbox"
             id={toggleInfo.labelFor}
-            onChange={onchange}
+            ref={inputRef}
+            onChange={handleToggle}
           />
           <ToggleLabel htmlFor={toggleInfo.labelFor}>
             <ToggleStatus
@@ -40,8 +43,9 @@ function ToggleSlider({ onchange, toggleInfo }: lToggle) {
           </ToggleLabel>
         </ToggleItem>
       </ToggleBox>
+      <p>The Switch is {toggle ? 'on' : 'off'}</p>
     </>
   );
 }
 
-export default ToggleSlider;
+export default Toggle;

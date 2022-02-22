@@ -24,7 +24,7 @@ export const ToggleInput = styled.input`
     content: ' ';
     width: 35px;
     height: 35px;
-    left: 46px;
+    left: 60px;
     background: #fff;
   }
 
@@ -37,7 +37,7 @@ export const ToggleInput = styled.input`
 
 export const ToggleLabel = styled.label`
   display: block;
-  width: 85px;
+  width: 100px;
   height: 40px;
   border-radius: 100px;
   background-color: #f5f5f5;
@@ -48,7 +48,7 @@ export const ToggleLabel = styled.label`
   &:before {
     content: '';
     display: block;
-    width: 85px;
+    width: 100px;
     height: 40px;
   }
 
@@ -59,7 +59,7 @@ export const ToggleLabel = styled.label`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 2.5px;
+    left: 5.5px;
     border-radius: 45px;
     background: #fff;
     transition: 0.2s;
