@@ -27,5 +27,5 @@
     "types": ["node"],
     "incremental": true
   },
-  "include": ["src/**/*", "src/@types", "src/Server/Server.ts"]
+  "include": ["src/**/*", "src/@types", "src/Server/Server.ts", "ToggleComp"]
 }

@@ -1,11 +1,26 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import ProgressBar from '@ramonak/react-progress-bar';
-import { FaPlayCircle, FaStopCircle } from 'react-icons/fa';
-import Toggle from './ToggleFuc/Toggle';
-import CounterContainers from '../../../Store/Containers/CounterContainers';
-import ClipoardContainers from '../../../Store/Containers/ClipoardContainers';
-import TestClickContainer from '../../../Store/Containers/TestClickContainer';
+import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai';
+import { IoMdRefreshCircle } from 'react-icons/io';
+import Toggle from './ToggleFunc/Toggle';
+import ClipboardCon from '../../../Store/Containers/ClipboardCon';
+
+// import ProgrBar from './ProgressFunc/ProgressBar';
+import {
+  Urlholder,
+  VideoBtn,
+  VideoBtnArea,
+  VideoControlBox,
+  VideoController,
+  VideoHandle,
+  VideoPlayer,
+  VideoRange,
+  VideoToggleArea,
+  VideoWrapper,
+} from '../Styles/Video.style';
+import { TextHidden } from '../Styles/Common.style';
+import { IconContext } from 'react-icons/lib';
 
 // const selectVideo = (index: number) => {
 //   setPlayIndex(index);
@@ -20,8 +35,8 @@ interface lPlayInfo {
 
 function VideoComp() {
   const playerSize = {
-    wd: '800px',
-    ht: '500px',
+    wd: '480px',
+    ht: '400px',
   };
 
   const playlist = [
@@ -51,10 +66,6 @@ function VideoComp() {
   const ToggleLoopRef = useRef<HTMLInputElement>(null);
   const ToggleControlRef = useRef<HTMLInputElement>(null);
 
-  const handleReset = (youTubeUrl: string) => {
-    setUrl(youTubeUrl);
-  };
-
   const getPlayData = (playData: lPlayInfo[]) => {
     const [{ url }] = playData;
     setUrl(url);
@@ -68,6 +79,12 @@ function VideoComp() {
     setPlay(false);
   };
 
+  const handleRefresh = () => {
+    setCplayed(0);
+    setPlay(false);
+    setUrl(null);
+  };
+
   const handleLoop = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoop(e.currentTarget.checked);
   };
@@ -75,6 +92,7 @@ function VideoComp() {
   const handleControl = (e: React.ChangeEvent<HTMLInputElement>) => {
     setControl(e.currentTarget.checked);
     setUrl(null);
+    setCplayed(0);
   };
 
   const handleNextVideo = (video: string | any[], playIndex: number) => {
@@ -86,17 +104,15 @@ function VideoComp() {
   };
 
   const inputRange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCplayed(0);
     setCplayed(Number(event.currentTarget.value));
     ref.current.seekTo(cplayed);
   };
 
   useEffect(() => {
-    const [{ url }] = playlist;
     getPlayData(playlist);
-    handleReset(url);
     return () => {
       getPlayData(playlist);
-      handleReset(url);
     };
   }, [playlist, url]);
 
@@ -106,73 +122,79 @@ function VideoComp() {
   if (playlist === null) return <p>Loading...</p>;
 
   return (
-    <div>
-      <div>
-        <ReactPlayer
-          className="react-player"
-          ref={ref}
-          width={playerSize.wd}
-          height={playerSize.ht}
-          url={url}
-          playing={play}
-          loop={loop}
-          controls={control}
-          light={false}
-          muted={false}
-          onEnded={() => handleNextVideo(playlist, playIndex)}
-        />
-      </div>
-      <div className="">
-        <div>
+    <>
+      <VideoWrapper>
+        <VideoPlayer>
+          <ReactPlayer
+            className="react-player"
+            ref={ref}
+            width={playerSize.wd}
+            height={playerSize.ht}
+            url={url}
+            playing={play}
+            loop={loop}
+            controls={control}
+            light={false}
+            muted={false}
+            onEnded={() => handleNextVideo(playlist, playIndex)}
+          />
+        </VideoPlayer>
+        <VideoHandle>
           <ProgressBar
             completed={Math.round(cplayed * 100)}
             maxCompleted={100}
           />
-          <div className="">
-            <div>
-              <FaPlayCircle onClick={handlePlay} />
-            </div>
-            <div>
-              <FaStopCircle onClick={handlePause} />
-            </div>
-            <button onClick={() => ref.current.seekTo(cplayed)}>
-              Seek to 00:10
-            </button>
-          </div>
-          <div className="">
-            <Toggle
-              toggleInfo={toggleControl}
-              handleToggle={handleControl}
-              toggle={control}
-              inputRef={ToggleControlRef}
-            />
-            <Toggle
-              toggleInfo={toggleLoop}
-              handleToggle={handleLoop}
-              toggle={loop}
-              inputRef={ToggleLoopRef}
-            />
-          </div>
-        </div>
-        <div className="">
-          <div className="">
-            <input
-              type="range"
-              min={0}
-              max={0.999999}
-              step="any"
-              value={cplayed}
-              onChange={inputRange}
-            />
-          </div>
-          <p>여기...{cplayed}</p>
-        </div>
-      </div>
-      {/* <Clipboard /> */}
-      <ClipoardContainers />
-      <CounterContainers />
-      <TestClickContainer />
-    </div>
+          <VideoControlBox>
+            <Urlholder>
+              <ClipboardCon />
+            </Urlholder>
+            <VideoController>
+              <VideoBtnArea>
+                <IconContext.Provider value={{ size: '50px' }}>
+                  <VideoBtn>
+                    <TextHidden>영상 플레이 버튼</TextHidden>
+                    <AiFillPlayCircle onClick={handlePlay} />
+                  </VideoBtn>
+                  <VideoBtn>
+                    <TextHidden>영상 정지 버튼</TextHidden>
+                    <AiFillPauseCircle onClick={handlePause} />
+                  </VideoBtn>
+                  <VideoBtn>
+                    <TextHidden>영상 다시 시작버튼</TextHidden>
+                    <IoMdRefreshCircle onClick={handleRefresh} />
+                  </VideoBtn>
+                </IconContext.Provider>
+              </VideoBtnArea>
+              <VideoToggleArea>
+                <Toggle
+                  toggleInfo={toggleControl}
+                  handleToggle={handleControl}
+                  toggle={control}
+                  inputRef={ToggleControlRef}
+                />
+                <Toggle
+                  toggleInfo={toggleLoop}
+                  handleToggle={handleLoop}
+                  toggle={loop}
+                  inputRef={ToggleLoopRef}
+                />
+              </VideoToggleArea>
+            </VideoController>
+            <VideoRange>
+              <input
+                type="range"
+                min={0}
+                max={0.999999}
+                step="any"
+                value={cplayed}
+                onChange={inputRange}
+                style={{ display: 'block', width: '100%' }}
+              />
+            </VideoRange>
+          </VideoControlBox>
+        </VideoHandle>
+      </VideoWrapper>
+    </>
   );
 }
 
