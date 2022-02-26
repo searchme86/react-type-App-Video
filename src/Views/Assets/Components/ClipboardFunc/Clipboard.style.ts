@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ClipboardWrapper = styled.div`
-  background-color: yellow;
   position: relative;
   padding: 10px;
   box-sizing: border-box;
@@ -24,12 +23,9 @@ export const ClipboardBtn = styled.div`
   height: 10px;
   cursor: pointer;
   border-radius: 2px;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s ease-out;
   -moz-transition: opacity 0.5s ease-out;
   -webkit-transition: opacity 0.5s ease-out;
   -o-transition: opacity 0.5s ease-out;
-  &:hover {
-    opacity: 1;
-  }
 `;
