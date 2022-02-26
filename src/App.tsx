@@ -1,5 +1,5 @@
 import React from 'react';
-import ImgSlider from './Views/Components/ImgSliderFunc/ImgSlider';
+import ImgSlider from './Views/Pages/Img';
 // import SwiperComp from './Views/Components/SliderFunc/SwiperComp';
 // import Framer from './Views/Pages/Framer';
 
