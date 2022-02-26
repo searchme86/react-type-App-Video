@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoComp from '../Assets/Components/VideoComp';
+import VideoComp from '../Components/VideoComp';
 import { VideoWrapper, VideoStyle } from '../Assets/Styles/Video.style';
 
 function Video() {

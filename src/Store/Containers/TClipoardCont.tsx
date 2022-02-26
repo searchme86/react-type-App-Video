@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../Modules';
 import { copyText, copy } from '../Modules/mClipboard';
-import ClipData from '../../Views/Assets/Components/ClipboardFunc/ClipData';
+import ClipData from '../../Views/Components/ClipboardFunc/ClipData';
 
 function ClipoardContainers() {
   const { value, copied } = useSelector((state: RootState) => state.Clipboard);

@@ -1,13 +1,16 @@
 import React from 'react';
+import ImgSlider from './Views/Components/ImgSliderFunc/ImgSlider';
+// import SwiperComp from './Views/Components/SliderFunc/SwiperComp';
 // import Framer from './Views/Pages/Framer';
 
-import Video from './Views/Pages/Video';
+// import Video from './Views/Pages/Video';
 
 function App() {
   return (
     <>
-      <Video />
-      {/* <Framer /> */}
+      {/* <Video /> */}
+      {/* <SwiperComp /> */}
+      <ImgSlider />
     </>
   );
 }

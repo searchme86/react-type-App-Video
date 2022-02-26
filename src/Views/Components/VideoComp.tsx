@@ -4,7 +4,7 @@ import ProgressBar from '@ramonak/react-progress-bar';
 import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai';
 import { IoMdRefreshCircle } from 'react-icons/io';
 import Toggle from './ToggleFunc/Toggle';
-import ClipboardCon from '../../../Store/Containers/ClipboardCon';
+import ClipboardCon from '../../Store/Containers/ClipboardCon';
 
 // import ProgrBar from './ProgressFunc/ProgressBar';
 import {
@@ -18,8 +18,8 @@ import {
   VideoRange,
   VideoToggleArea,
   VideoWrapper,
-} from '../Styles/Video.style';
-import { TextHidden } from '../Styles/Common.style';
+} from '../Assets/Styles/Video.style';
+import { TextHidden } from '../Assets/Styles/Common.style';
 import { IconContext } from 'react-icons/lib';
 
 // const selectVideo = (index: number) => {
