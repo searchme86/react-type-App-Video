@@ -10,8 +10,14 @@ function ImgSlider() {
     InputRef.current?.click();
   };
   const checkItem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.value) {
-      setImgList((prev) => [...prev, event.currentTarget?.value]);
+    if (event.currentTarget.files?.[0]) {
+      const file = event.currentTarget.files?.[0];
+      console.log(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = (event) => {
+        setImgList((prev) => [...prev, event.target?.result as string]);
+      };
     }
   };
 
@@ -19,39 +25,22 @@ function ImgSlider() {
 
   return (
     <div className="container">
-      <div className="initial-box">
-        <div className="text-center">
-          이미지가 없습니다
-          <br />
-          이미지를 추가해주세요
-        </div>
+      <div className={'gallary-box' + (imgList.length > 0 && ' row')}>
+        {imgList.length === 0 && (
+          <div className="text-center">
+            이미지가 없습니다
+            <br />
+            이미지를 추가해주세요
+          </div>
+        )}
         <div className="plus-box" onClick={clickBtn}>
           +
         </div>
       </div>
       <input type="file" ref={InputRef} onChange={checkItem} />
-      <div className="image-holder">
-        <ImageBox
-          src="https://media.vlpt.us/images/cjy0029/post/a67c40fa-bfb2-4aea-b9ba-440a3994518c/reactquery.png"
-          alt="ss"
-        />
-        <ImageBox
-          src="https://media.vlpt.us/images/cjy0029/post/a67c40fa-bfb2-4aea-b9ba-440a3994518c/reactquery.png"
-          alt="ss"
-        />
-        <ImageBox
-          src="https://media.vlpt.us/images/cjy0029/post/a67c40fa-bfb2-4aea-b9ba-440a3994518c/reactquery.png"
-          alt="ss"
-        />
-        <ImageBox
-          src="https://media.vlpt.us/images/cjy0029/post/a67c40fa-bfb2-4aea-b9ba-440a3994518c/reactquery.png"
-          alt="ss"
-        />
-        <ImageBox
-          src="https://media.vlpt.us/images/cjy0029/post/a67c40fa-bfb2-4aea-b9ba-440a3994518c/reactquery.png"
-          alt="ss"
-        />
-      </div>
+      {imgList.map((el, idx) => (
+        <ImageBox key={idx} src={el} alt={'good'} />
+      ))}
     </div>
   );
 }
